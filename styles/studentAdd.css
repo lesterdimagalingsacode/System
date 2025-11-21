@@ -1,0 +1,36 @@
+:root{
+  --sidebar: #088395;
+  --text-color: #2d3327;
+  --backgroundcolor: #ffff;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100dvh;
+}
+
+header{
+    background-color: var(--sidebar);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.logo-osms {
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: 39.5%;
+    
+}
+
+.ascot-logo{
+    height: 50px;
+}
