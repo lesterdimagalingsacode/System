@@ -1,0 +1,362 @@
+/* ---------- General Variables ---------- */
+:root {
+    --sidebar: #088395;
+    --text-color: #2d3327;
+    --backgroundcolor: #ffffff;
+    --primary-color: #37B7C3;
+    --btn-hover: #26a0b0;
+}
+
+/* ---------- Global ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    overflow: hidden;
+    background-color: var(--sidebar);
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ascot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    position: relative;
+    width: 75px;
+    margin-bottom: 75px;
+}
+
+.ascot span {
+    position: absolute;
+    left: 65px;
+    top: 40%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-left: 10px;
+    color: white;
+    width: 175px;
+    max-width: 250px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7.5px;
+    margin-bottom: 50px;
+}
+
+.ascot-logo {
+    width: 60px;
+}
+
+nav {
+    margin-bottom: 150px;
+}
+
+nav a, button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    color: white;
+    text-decoration: none;
+    width: 75px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a span {
+    position: absolute;
+    left: 65px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-left: 10px;
+    width: 175px;
+    max-width: 230px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.icon-logo {
+    width: 30px;
+    filter: brightness(0) invert(1);
+}
+
+button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button .button {
+    width: 30px;
+    display: block;
+    filter: brightness(0) invert(1);
+}
+
+.sidebar.expanded {
+    width: 250px;
+}
+
+.sidebar.expanded nav a span,
+.sidebar.expanded .ascot span {
+    opacity: 1;
+}
+
+/* ---------- Main Content ---------- */
+.content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    transition: margin-left 0.3s ease;
+}
+/* ---------- Page Header ---------- */
+h2 {
+    color: var(--sidebar);
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* ---------- Schedule Container ---------- */
+.schedule-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+/* ---------- Day Groups ---------- */
+.day-group {
+    margin-bottom: 30px;
+}
+
+.day-group:last-child {
+    margin-bottom: 0;
+}
+
+.day-header {
+    background: linear-gradient(135deg, var(--sidebar) 0%, var(--primary-color) 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.day-header::before {
+    content: "📅";
+    font-size: 20px;
+}
+
+/* ---------- Schedule Cards ---------- */
+.schedule-card {
+    background: white;
+    border-left: 4px solid var(--primary-color);
+    padding: 20px 25px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 25px;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.schedule-card:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-card:hover {
+    background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateX(5px);
+    border-left-width: 5px;
+}
+
+.time-slot {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--sidebar);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.class-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subject-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.class-details {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-year {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.badge-block {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.badge-semester {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.room-info {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* ---------- Empty State ---------- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.empty-state::before {
+    content: "📭";
+    font-size: 60px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.empty-state p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 1024px) {
+    .schedule-card {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .room-info {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 75px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .schedule-container {
+        padding: 20px;
+    }
+
+    .day-header {
+        font-size: 16px;
+        padding: 12px 15px;
+    }
+
+    .schedule-card {
+        padding: 15px;
+    }
+
+    .class-details {
+        gap: 8px;
+    }
+
+    .subject-name {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .schedule-container {
+        padding: 15px;
+    }
+
+    .day-header {
+        font-size: 15px;
+        padding: 10px 12px;
+    }
+
+    .badge {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+}

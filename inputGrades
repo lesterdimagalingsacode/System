@@ -1,0 +1,189 @@
+<?php
+session_start();
+require_once "db_connection.php";
+
+// Only teachers can access
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'teacher') {
+    header("Location: LoginTeacher.html");
+    exit();
+}
+
+$teacher_id = $_SESSION['teacher_id'];
+$user_id = $_SESSION['user_id'];
+$success = $error = '';
+
+// 1️⃣ Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_grades'])) {
+    $class_id = $_POST['class_id'];
+    $students = $_POST['student_number'];
+    $prelims = $_POST['prelim'];
+    $midterms = $_POST['midterm'];
+    $finals = $_POST['final'];
+
+    $stmt_insert = $conn->prepare("
+        INSERT INTO grades (student_number, class_id, prelim, midterm, final, average, remarks, submitted_by, submitted_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
+        ON DUPLICATE KEY UPDATE 
+        prelim=VALUES(prelim), midterm=VALUES(midterm), final=VALUES(final), average=VALUES(average), remarks=VALUES(remarks)
+    ");
+
+    foreach ($students as $index => $student_number) {
+        $prelim = floatval($prelims[$index]);
+        $midterm = floatval($midterms[$index]);
+        $final = floatval($finals[$index]);
+
+        // Validate grades 0-100
+        if ($prelim < 0 || $prelim > 100 || $midterm < 0 || $midterm > 100 || $final < 0 || $final > 100) {
+            $error = "Grades must be between 0 and 100!";
+            break;
+        }
+
+        $average = round(($prelim + $midterm + $final)/3, 2);
+        $remarks = ($average >= 75) ? 'Passed' : 'Failed';
+
+        $stmt_insert->bind_param("isdddssi", $student_number, $class_id, $prelim, $midterm, $final, $average, $remarks, $teacher_id);
+        $stmt_insert->execute();
+    }
+
+    if (!$error) $success = "Grades saved successfully!";
+}
+
+// 2️⃣ Get classes assigned to teacher
+$classes = $conn->query("
+    SELECT c.class_id, s.subject_name, c.year_level, c.block, c.semester
+    FROM classes c
+    JOIN subjects s ON c.subject_id = s.subject_id
+    WHERE c.teacher_id = $teacher_id
+    ORDER BY c.year_level, c.semester
+")->fetch_all(MYSQLI_ASSOC);
+
+// 3️⃣ Get selected class and its students
+$selected_class_id = $_POST['class_id'] ?? '';
+$students_in_class = [];
+
+if ($selected_class_id) {
+    $stmt = $conn->prepare("
+        SELECT e.student_number, st.name
+        FROM enrollments e
+        JOIN students st ON st.student_number = e.student_number
+        WHERE e.year_level = (SELECT year_level FROM classes WHERE class_id = ?)
+          AND e.block = (SELECT block FROM classes WHERE class_id = ?)
+          AND e.semester = (SELECT semester FROM classes WHERE class_id = ?)
+          AND e.status = 'Approved'
+        ORDER BY st.name
+    ");
+    $stmt->bind_param("iii", $selected_class_id, $selected_class_id, $selected_class_id);
+    $stmt->execute();
+    $students_in_class = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+// 4️⃣ Get existing grades for selected class
+$existing_grades = [];
+if ($selected_class_id) {
+    $stmt = $conn->prepare("SELECT * FROM grades WHERE class_id=?");
+    $stmt->bind_param("i", $selected_class_id);
+    $stmt->execute();
+    $grades_result = $stmt->get_result();
+    while ($row = $grades_result->fetch_assoc()) {
+        $existing_grades[$row['student_number']] = $row;
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade Input</title>
+<link rel="stylesheet" href="styles/teacherDashboard.css">
+<style>
+table { border-collapse: collapse; width: 100%; }
+th, td { border:1px solid #ccc; padding:8px; text-align:center; }
+input[type=number] { width:60px; }
+</style>
+</head>
+<body>
+<h2>Input Grades</h2>
+
+<?php if($error) echo "<p style='color:red;'>$error</p>"; ?>
+<?php if($success) echo "<p style='color:green;'>$success</p>"; ?>
+
+<form method="post">
+<label>Select Class: </label>
+<select name="class_id" onchange="this.form.submit()">
+    <option value="">--Select--</option>
+    <?php foreach($classes as $c): ?>
+        <option value="<?= $c['class_id'] ?>" <?= ($selected_class_id==$c['class_id'])?'selected':'' ?>>
+            <?= "{$c['subject_name']} | Year {$c['year_level']} | Block {$c['block']} | {$c['semester']} Semester" ?>
+        </option>
+    <?php endforeach; ?>
+</select>
+</form>
+
+<?php if($selected_class_id && $students_in_class): ?>
+<form method="post">
+<input type="hidden" name="class_id" value="<?= $selected_class_id ?>">
+<table>
+    <tr>
+        <th>Student Number</th>
+        <th>Name</th>
+        <th>Prelim</th>
+        <th>Midterm</th>
+        <th>Final</th>
+        <th>Average</th>
+        <th>Remarks</th>
+    </tr>
+    <?php foreach($students_in_class as $s): 
+        $grade = $existing_grades[$s['student_number']] ?? ['prelim'=>0,'midterm'=>0,'final'=>0,'average'=>0,'remarks'=>''];
+    ?>
+    <tr>
+        <td>
+            <?= $s['student_number'] ?>
+            <input type="hidden" name="student_number[]" value="<?= $s['student_number'] ?>">
+        </td>
+        <td><?= $s['name'] ?></td>
+        <td><input type="number" name="prelim[]" value="<?= $grade['prelim'] ?>" min="0" max="100" required></td>
+        <td><input type="number" name="midterm[]" value="<?= $grade['midterm'] ?>" min="0" max="100" required></td>
+        <td><input type="number" name="final[]" value="<?= $grade['final'] ?>" min="0" max="100" required></td>
+        <td class="average"></td>
+        <td class="remarks"></td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+<button type="submit" name="submit_grades">Save Grades</button>
+</form>
+
+<script>
+// Auto-calculate average and remarks
+document.querySelectorAll('table tr').forEach(row => {
+    const prelim = row.querySelector('input[name="prelim[]"]');
+    const midterm = row.querySelector('input[name="midterm[]"]');
+    const finalInput = row.querySelector('input[name="final[]"]');
+    const avgCell = row.querySelector('.average');
+    const remarksCell = row.querySelector('.remarks');
+
+    if(prelim && midterm && finalInput){
+        function calc(){
+            const p = parseFloat(prelim.value) || 0;
+            const m = parseFloat(midterm.value) || 0;
+            const f = parseFloat(finalInput.value) || 0;
+            const avg = ((p+m+f)/3).toFixed(2);
+            avgCell.textContent = avg;
+            remarksCell.textContent = (avg >= 75)?'Passed':'Failed';
+        }
+        prelim.addEventListener('input', calc);
+        midterm.addEventListener('input', calc);
+        finalInput.addEventListener('input', calc);
+        calc();
+    }
+});
+</script>
+
+<?php elseif($selected_class_id): ?>
+<p>No students enrolled in this class yet.</p>
+<?php endif; ?>
+
+</body>
+</html>

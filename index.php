@@ -1,3 +1,28 @@
+<?php
+include 'db_connection.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['roles'])) {
+        $role = $_POST['roles'];
+
+        // Redirect based on role selection
+        if ($role == "Student") {
+            header("Location: LoginStudent.php");
+            exit();
+        } elseif ($role == "Teacher") {
+            header("Location: LoginTeacher.php");
+            exit();
+        } elseif ($role == "Admin") {
+            header("Location: LoginAdmin.php");
+            exit();
+        }
+        exit();
+    } else {
+        $error = "Please select a role before continuing.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +33,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/ASCOT LOGO.png" type="image/x-icon">
 </head>
 <body>
-  <form class="form-container" action="" method="post">
+  <form class="form-container" action="index.php" method="post">
     <div class="form-header">
       <h2>Select Your Role</h2>
       <p>Choose the option that best describes you</p>

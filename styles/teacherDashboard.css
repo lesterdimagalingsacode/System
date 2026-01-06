@@ -1,0 +1,305 @@
+:root{
+  --sidebar: #088395;
+  --accent: #37B7C3;
+  --text-dark: #2d3327;
+  --text-light: #5a5a5a;
+  --bg: #f8fafb;
+  --card-bg: #ffffff;
+  --shadow: rgba(8, 131, 149, 0.1);
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+body{
+  display: flex;
+  height: 100dvh;
+  width: 100vw;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  width: 75px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--sidebar) 0%, #066b7a 100%);
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 10px var(--shadow);
+}
+
+.ascot{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: relative;
+  width: 75px;
+  margin-bottom: 50px;
+}
+
+.ascot span{
+  position: absolute;
+  left: 65px;
+  top: 35%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  color: white;
+  width: 175px;
+  max-width: 200px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.ascot-logo{
+  width: 60px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+nav{
+  margin-bottom: 150px;
+}
+
+nav a, button{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  color: white;
+  text-decoration: none;
+  width: 75px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a span{
+  position: absolute;
+  left: 65px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  width: 175px;
+  max-width: 230px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.icon-logo{
+  width: 30px;
+  filter: brightness(0) invert(1);
+}
+
+button{
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 85px;
+}
+
+button .button {
+  width: 30px;
+  display: block;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+button:hover .button {
+  transform: scale(1.1);
+}
+
+.sidebar.expanded {
+  width: 250px;
+}
+
+.sidebar.expanded nav a span,
+.sidebar.expanded .ascot span {
+  opacity: 1;
+}
+
+/* MAIN CONTENT */
+.content{
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.content > div:first-child {
+  margin-bottom: 30px;
+}
+
+.content h1 {
+  color: var(--text-dark);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.content h2 {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* GRID LAYOUT */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  height: calc(100dvh - 160px);
+}
+
+.div1 { grid-area: 1 / 1 / 2 / 3; }
+.div2 { grid-area: 1 / 3 / 2 / 5; }
+.div3 { grid-area: 2 / 1 / 5 / 3; }
+.div4 { grid-area: 2 / 3 / 4 / 5; }
+.div5 { grid-area: 4 / 3 / 5 / 5; }
+
+/* CARD STYLES */
+.div1, .div2, .div3, .div4, .div5 {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--shadow);
+  border: 2px solid var(--accent);
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.div1:hover, .div2:hover, .div3:hover, .div4:hover, .div5:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(8, 131, 149, 0.15);
+}
+
+/* Card Headers */
+.parent h3 {
+  color: var(--sidebar);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.parent h3::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--sidebar) 100%);
+  border-radius: 2px;
+}
+
+/* Card Content */
+.parent p {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--sidebar);
+  margin-top: 10px;
+}
+
+.parent ul {
+  list-style: none;
+  padding: 0;
+}
+
+.parent ul li {
+  padding: 10px 0;
+  color: var(--text-dark);
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 0.9rem;
+}
+
+.parent ul li:last-child {
+  border-bottom: none;
+}
+
+/* Quick Actions Buttons */
+.div5 a {
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.div5 button {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 0;
+}
+
+.div5 button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 131, 149, 0.3);
+}
+
+.div5 button:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .parent {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+  
+  .div1 { grid-area: 1 / 1 / 2 / 3; }
+  .div2 { grid-area: 2 / 1 / 3 / 2; }
+  .div3 { grid-area: 4 / 1 / 5 / 3; }
+  .div4 { grid-area: 3 / 1 / 4 / 2; }
+  .div5 { grid-area: 2 / 2 / 4 / 3; }
+}
+
+/* Scrollbar styling */
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: var(--sidebar);
+}

@@ -1,3 +1,49 @@
+<?php
+include 'db_connection.php';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $fName = trim($_POST['fName']);
+    $surname = trim($_POST['surname']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $confirmPass = $_POST['confirmPass'];
+
+    // Basic validation
+    if ($password !== $confirmPass) {
+        die("Passwords do not match!");
+    }
+
+    // Check if email already exists
+    $stmt = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        die("Email already registered!");
+    }
+
+    // Hash password
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insert into users table
+    $stmt = $conn->prepare("INSERT INTO users (email, password, role) VALUES (?, ?, 'student')");
+    $stmt->bind_param("ss", $email, $hashedPassword);
+    $stmt->execute();
+
+    $user_id = $stmt->insert_id;
+
+    // Insert into students table
+    $fullName = $fName . " " . $surname;
+    $stmt = $conn->prepare("INSERT INTO students (user_id, name) VALUES (?, ?)");
+    $stmt->bind_param("is", $user_id, $fullName);
+    $stmt->execute();
+
+    // Redirect to login
+    header("Location: LoginStudent.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +54,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/studentAdd.css">
+    <link rel="shortcut icon" href="assets/ASCOT LOGO.png" type="image/x-icon">
     <title>Student Registration - ASCOT</title>
 </head>
 <body>
@@ -36,7 +83,7 @@
                     <p>Create your account to get started</p>
                 </div>
                 
-                <form action="" method="post">
+                <form action="studentAdd.php" method="post">
                     <div class="student-input">
                         <div class="input-group fName">
                             <label for="first-name">

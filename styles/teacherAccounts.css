@@ -1,0 +1,446 @@
+:root{
+  --sidebar: #088395;
+  --accent: #37B7C3;
+  --text-dark: #2d3327;
+  --text-light: #5a5a5a;
+  --bg: #f8fafb;
+  --card-bg: #ffffff;
+  --shadow: rgba(8, 131, 149, 0.1);
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+body{
+  display: flex;
+  height: 100dvh;
+  width: 100vw;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  width: 75px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--sidebar) 0%, #066b7a 100%);
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 10px var(--shadow);
+}
+
+.ascot{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: relative;
+  width: 75px;
+  margin-bottom: 30px;
+}
+
+.ascot span{
+  position: absolute;
+  left: 65px;
+  top: 40%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  color: white;
+  width: 175px;
+  max-width: 250px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.ascot-logo{
+  width: 60px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+nav{
+  margin-bottom: 100px;
+}
+
+nav a{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  color: white;
+  text-decoration: none;
+  width: 75px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid white;
+}
+
+nav a span{
+  position: absolute;
+  left: 65px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  width: 175px;
+  max-width: 230px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.icon-logo{
+  width: 30px;
+  filter: brightness(0) invert(1);
+}
+
+.sidebar > button{
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+}
+
+.sidebar > button .button {
+  width: 30px;
+  display: block;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.sidebar > button:hover .button {
+  transform: scale(1.1);
+}
+
+.sidebar.expanded {
+  width: 250px;
+}
+
+.sidebar.expanded nav a span,
+.sidebar.expanded .ascot span {
+  opacity: 1;
+}
+
+/* MAIN CONTENT */
+main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+main h2 {
+  color: var(--text-dark);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* SUCCESS/ERROR MESSAGES */
+main p {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+main p[style*="color:green"] {
+  background: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+main p[style*="color:red"] {
+  background: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+/* TABLE STYLING */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px var(--shadow);
+  border: none;
+}
+
+table thead {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+}
+
+table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e8e8e8;
+  color: var(--text-dark);
+}
+
+table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+table tbody tr:hover {
+  background-color: #f8fafb;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ACTION BUTTONS IN TABLE */
+table button {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+table button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(8, 131, 149, 0.3);
+}
+
+table form {
+  display: inline;
+}
+
+table form button {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+table form button:hover {
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* ADD NEW TEACHER BUTTON */
+main > a > button {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+main > a > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 131, 149, 0.3);
+}
+
+/* EMPTY STATE */
+main > p:not([style]) {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 12px;
+  border: 2px dashed var(--accent);
+  text-align: center;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* MODAL OVERLAY */
+#teacherFormModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* MODAL CONTENT */
+#teacherFormModal > div {
+  background: white;
+  padding: 30px;
+  max-width: 550px;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#teacherFormModal h3 {
+  color: var(--text-dark);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* FORM STYLING */
+#teacherFormModal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#teacherFormModal label {
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: -10px;
+}
+
+#teacherFormModal input,
+#teacherFormModal textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+  font-family: Poppins, sans-serif;
+}
+
+#teacherFormModal input:focus,
+#teacherFormModal textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+#teacherFormModal textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* FORM BUTTONS */
+#teacherFormModal form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-right: 8px;
+}
+
+#teacherFormModal form button[type="submit"] {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+}
+
+#teacherFormModal form button[type="button"] {
+  background: #6c757d;
+  color: white;
+}
+
+#teacherFormModal form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#teacherFormModal form button:active {
+  transform: translateY(0);
+}
+
+/* SCROLLBAR */
+main::-webkit-scrollbar {
+  width: 8px;
+}
+
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: var(--sidebar);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  main {
+    padding: 20px;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  table th,
+  table td {
+    padding: 10px 12px;
+  }
+
+  table button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  #teacherFormModal > div {
+    width: 95%;
+    padding: 20px;
+  }
+}

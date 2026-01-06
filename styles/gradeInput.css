@@ -1,0 +1,417 @@
+/* ---------- General Variables ---------- */
+:root {
+    --sidebar: #088395;
+    --text-color: #2d3327;
+    --backgroundcolor: #ffffff;
+    --primary-color: #37B7C3;
+    --btn-hover: #26a0b0;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+}
+
+/* ---------- Global ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    overflow: hidden;
+    background-color: var(--sidebar);
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ascot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    position: relative;
+    width: 75px;
+    margin-bottom: 50px;
+}
+
+.ascot span {
+    position: absolute;
+    left: 65px;
+    top: 40%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-left: 10px;
+    color: white;
+    width: 175px;
+    max-width: 250px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7.5px;
+    margin-bottom: 50px;
+}
+
+.ascot-logo {
+    width: 60px;
+}
+
+nav {
+    margin-bottom: 150px;
+}
+
+nav a, button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    color: white;
+    text-decoration: none;
+    width: 75px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a span {
+    position: absolute;
+    left: 65px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-left: 10px;
+    width: 175px;
+    max-width: 230px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.icon-logo {
+    width: 30px;
+    filter: brightness(0) invert(1);
+}
+
+button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button .button {
+    width: 30px;
+    display: block;
+    filter: brightness(0) invert(1);
+}
+
+.sidebar.expanded {
+    width: 250px;
+}
+
+.sidebar.expanded nav a span,
+.sidebar.expanded .ascot span {
+    opacity: 1;
+}
+
+/* ---------- Main Content ---------- */
+.content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    transition: margin-left 0.3s ease;
+}
+
+
+/* ---------- Page Header ---------- */
+.content h2 {
+    color: var(--sidebar);
+    font-size: 28px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* ---------- Alert Messages ---------- */
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid var(--success-color);
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid var(--danger-color);
+}
+
+/* ---------- Class Selection Card ---------- */
+.class-selection-card {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    border: 1px solid #e9ecef;
+}
+
+.class-selection-card label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-right: 15px;
+    font-size: 15px;
+}
+
+.class-selection-card select {
+    padding: 12px 16px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    color: var(--text-color);
+    min-width: 400px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.class-selection-card select:hover {
+    border-color: #adb5bd;
+    background-color: white;
+}
+
+.class-selection-card select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(55, 183, 195, 0.1);
+}
+
+/* ---------- Grade Table Card ---------- */
+.grade-table-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    overflow-x: auto;
+}
+
+/* ---------- Table Styles ---------- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 25px;
+}
+
+table thead {
+    background: linear-gradient(135deg, var(--sidebar) 0%, var(--primary-color) 100%);
+}
+
+table th {
+    padding: 16px 12px;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+table th:first-child {
+    border-top-left-radius: 8px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e9ecef;
+}
+
+table tbody tr:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+table tbody tr:last-child {
+    border-bottom: none;
+}
+
+table td {
+    padding: 16px 12px;
+    text-align: center;
+    color: var(--text-color);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+table td:first-child {
+    text-align: left;
+    padding-left: 20px;
+    font-weight: 500;
+}
+
+/* ---------- Input Fields ---------- */
+table input[type="number"] {
+    width: 80px;
+    padding: 10px 12px;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+table input[type="number"]:hover {
+    border-color: #adb5bd;
+    background-color: white;
+}
+
+table input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(55, 183, 195, 0.1);
+}
+
+/* ---------- Average & Remarks Styling ---------- */
+.average {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--sidebar);
+}
+
+.remarks {
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- Submit Button ---------- */
+.btn-submit {
+    padding: 14px 40px;
+    background: linear-gradient(135deg, var(--success-color) 0%, #218838 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(40, 167, 69, 0.3);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* ---------- Empty State ---------- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.empty-state p {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 1024px) {
+    .class-selection-card select {
+        min-width: 300px;
+    }
+    
+    table input[type="number"] {
+        width: 70px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 75px;
+        padding: 20px;
+    }
+
+    .class-selection-card {
+        padding: 20px;
+    }
+
+    .class-selection-card select {
+        min-width: 100%;
+        margin-top: 10px;
+    }
+
+    .grade-table-card {
+        padding: 15px;
+    }
+
+    table th, table td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    table input[type="number"] {
+        width: 60px;
+        font-size: 13px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        justify-content: center;
+    }
+}

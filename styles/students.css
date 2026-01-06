@@ -1,7 +1,11 @@
 :root{
   --sidebar: #088395;
-  --text-color: #2d3327;
-  --backgroundcolor: #ffff;
+  --accent: #37B7C3;
+  --text-dark: #2d3327;
+  --text-light: #5a5a5a;
+  --bg: #f8fafb;
+  --card-bg: #ffffff;
+  --shadow: rgba(8, 131, 149, 0.1);
 }
 
 *{
@@ -15,17 +19,20 @@ body{
   display: flex;
   height: 100dvh;
   width: 100vw;
-  background-color: var(--backgroundcolor);
+  background-color: var(--bg);
   overflow: hidden;
 }
 
+/* SIDEBAR */
 .sidebar{
   display: flex;
   flex-direction: column;
   width: 75px;
   overflow: hidden;
-  background-color: var(--sidebar);
+  background: linear-gradient(180deg, var(--sidebar) 0%, #066b7a 100%);
   transition: width 0.3s ease;
+  box-shadow: 2px 0 10px var(--shadow);
+  position: sticky;
 }
 
 .ascot{
@@ -35,35 +42,40 @@ body{
   flex-direction: row;
   position: relative;
   width: 75px;
+  margin-bottom: 30px;
 }
 
 .ascot span{
   position: absolute;
   left: 65px;
-  top: 40%;
+  top: 35%;
   transform: translateY(-50%);
   opacity: 0;
   transition: opacity 0.3s ease;
   margin-left: 10px;
   color: white;
-  max-width: 250px;
+  width: 175px;
+  max-width: 200px;
   line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .logo{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 7.5px;
+  margin-top: 20px;
   margin-bottom: 50px;
 }
 
 .ascot-logo{
   width: 60px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 nav{
-  margin-bottom: 100px;
+  margin-bottom: 70px;
 }
 
 nav a, button{
@@ -75,6 +87,16 @@ nav a, button{
   color: white;
   text-decoration: none;
   width: 75px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid white;
 }
 
 nav a span{
@@ -85,12 +107,16 @@ nav a span{
   opacity: 0;
   transition: opacity 0.3s ease;
   margin-left: 10px;
+  width: 175px;
   max-width: 230px;
   line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .icon-logo{
   width: 30px;
+  filter: brightness(0) invert(1);
 }
 
 button{
@@ -101,11 +127,18 @@ button{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 30px;
 }
 
 button .button {
   width: 30px;
   display: block;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+button:hover .button {
+  transform: scale(1.1);
 }
 
 .sidebar.expanded {
@@ -117,39 +150,30 @@ button .button {
   opacity: 1;
 }
 
-.content{
+/* MAIN CONTENT */
+.content {
   flex: 1;
-  margin-left: 20px;
-  margin-right: 20px;
-  overflow: hidden;
+  padding: 30px;
+  overflow-y: auto;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  transition: all 0.3s ease;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
-
-.div1 { 
-  grid-area: 1 / 1 / 4 / 3; 
-  height: 50dvh;
-  background-color: #50e8ff;
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
 }
-
-.div2 { 
-  grid-area: 4 / 1 / 6 / 3; 
-  background-color: #2d3327;
+#search {
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 10px;
 }
-
-.div3 { 
-  grid-area: 3 / 3 / 6 / 5; 
-  background-color: brown;
-}
-
-.div4 { 
-  grid-area: 1 / 3 / 3 / 5; 
-  background-color: chocolate;
+img.profile {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
 }

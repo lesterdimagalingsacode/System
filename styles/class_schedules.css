@@ -1,0 +1,441 @@
+:root{
+  --sidebar: #088395;
+  --accent: #37B7C3;
+  --text-dark: #2d3327;
+  --text-light: #5a5a5a;
+  --bg: #f8fafb;
+  --card-bg: #ffffff;
+  --shadow: rgba(8, 131, 149, 0.1);
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+body{
+  display: flex;
+  height: 100dvh;
+  width: 100vw;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  width: 75px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--sidebar) 0%, #066b7a 100%);
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 10px var(--shadow);
+}
+
+.ascot{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  position: relative;
+  width: 75px;
+  margin-bottom: 50px;
+}
+
+.ascot span{
+  position: absolute;
+  left: 65px;
+  top: 35%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  color: white;
+  width: 175px;
+  max-width: 200px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.ascot-logo{
+  width: 60px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+nav{
+  margin-bottom: 20px;
+}
+
+nav a{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  color: white;
+  text-decoration: none;
+  width: 75px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+nav a.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid white;
+}
+
+nav a span{
+  position: absolute;
+  left: 65px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: 10px;
+  width: 175px;
+  max-width: 230px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.icon-logo{
+  width: 30px;
+  filter: brightness(0) invert(1);
+}
+
+.sidebar > button{
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  margin-top: 60px;
+}
+
+.sidebar > button .button {
+  width: 30px;
+  display: block;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.sidebar > button:hover .button {
+  transform: scale(1.1);
+}
+
+.sidebar.expanded {
+  width: 250px;
+}
+
+.sidebar.expanded nav a span,
+.sidebar.expanded .ascot span {
+  opacity: 1;
+}
+
+/* MAIN CONTENT */
+.content{
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.content h2 {
+  color: var(--text-dark);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* STATUS MESSAGE */
+.status {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  background: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+/* ADD SCHEDULE BUTTON */
+.content > button {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content > button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 131, 149, 0.3);
+}
+
+/* TABLE STYLING */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+table thead tr {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+}
+
+table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e8e8e8;
+  color: var(--text-dark);
+}
+
+table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+table tbody tr:hover {
+  background-color: #f8fafb;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* TABLE ACTION BUTTONS */
+table td button {
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-right: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+table td button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(8, 131, 149, 0.3);
+}
+
+table td button:last-child {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+table td button:last-child:hover {
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  width: 550px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease;
+  position: relative;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-content .close:hover {
+  color: var(--text-dark);
+}
+
+.modal-content h3 {
+  color: var(--text-dark);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--accent);
+  padding-right: 30px;
+}
+
+/* FORM STYLING */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-content label {
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: -10px;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+  font-family: Poppins, sans-serif;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.modal-content select[multiple] {
+  min-height: 120px;
+}
+
+.modal-content select[multiple] option {
+  padding: 8px;
+}
+
+/* FORM BUTTONS */
+.modal-content form button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--sidebar) 0%, var(--accent) 100%);
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
+}
+
+.modal-content form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(8, 131, 149, 0.3);
+}
+
+.modal-content form button:active {
+  transform: translateY(0);
+}
+
+/* SCROLLBAR */
+.content::-webkit-scrollbar,
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track,
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb,
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover,
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--sidebar);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+
+  table {
+    font-size: 0.85rem;
+    display: block;
+    overflow-x: auto;
+  }
+
+  table th,
+  table td {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  table td button {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+}
